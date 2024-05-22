@@ -51,16 +51,14 @@
             <h1 class="text-blue-300 text-4xl font-semibold tracking-wide">Elective101</h1>
         </div>
         <div class="flex flex-row items-center justify-around w-4/6 h-full">
+            <a href="client" class="text-md font-medium text-gray-500">Control Structure</a>
             <a href="client" class="text-md font-medium text-gray-500">Client</a>
             <a href="{{ route('clients.data' )}}" class="text-md font-medium text-gray-500">Client Management</a>
             <a href="/ClientManagement/create" class="text-md font-medium text-gray-500">Client Form</a>
-        </div>
-        <div class="flex items-center justify-center  w-1/5 h-full b">
-            <a href="main" class="text-lg font-normal text-gray-400">Paul Sales</a>
-            <!-- Logout link -->
-            <form action="{{ route('logout') }}" method="POST">
+            <a href="{{ route('profile')}}" class="text-md font-medium text-gray-500">Profile</a>
+            <form method="POST" action="{{ route('logout') }}">
                 @csrf
-                <button type="submit" class="text-md font-medium text-gray-500">Logout</button>
+                <button type="submit" style="font-size: 16px; color: gray;">Logout</button>
             </form>
         </div>
     </div>
@@ -83,15 +81,6 @@
     <div class="flex-1 flex items-center justify-center h-96 w-full">
         @yield('contents')
     </div>
-
-
-    
-    <div class="h-10 flex items-center justify-center bottom">
-        <h1 class="text-lg font-normal tracking-wide text-gray-500">salespaul@gmail.com</h1>
-    </div>
-
-   
-
 
     <script>
         const texts = [

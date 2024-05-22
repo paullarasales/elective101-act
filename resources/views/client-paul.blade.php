@@ -43,7 +43,7 @@
         </table>
     </div> 
     <div class="flex items-center justify-center mt-4">
-        {{ $clientData->links() }} 
+        {{ $clientData->links('vendor.pagination.tailwind') }} 
     </div>
 </div>
 @endsection

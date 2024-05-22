@@ -57,15 +57,53 @@ class AuthControllerJPS extends Controller
         return back()->withErrors(['message' => 'Credentials did not match']);
    }
 
+   public function updateProfile(Request $request) {
+     $request->validate([
+         'firstname' => 'required|string|max:255',
+         'lastname' => 'required|string|max:255',
+         'username' => 'required|string|max:255',
+     ]);
+
+     $user = $request->session()->get('user');
+     $user->firstname = $request->firstname;
+     $user->lastname = $request->lastname;
+     $user->username = $request->username;
+     $user->save();
+
+     // Update session data
+     $request->session()->put('user', $user);
+
+     return redirect()->route('profile')->with('status', 'Profile updated successfully!');
+ }
+
    public function logout(Request $request)
    {
         $request->session()->forget('user');
         return redirect()->route('login');
    }
 
+   public function deleteAccount(Request $request)
+{
+    // Retrieve the user information
+    $user = $request->session()->get('user');
 
-   public function dashboard()
-   {
-        return view('welcome');
-   }
+    // If user information exists
+    if ($user) {
+        // Perform any additional cleanup tasks if necessary
+        // For example, delete related records in other tables
+
+        // Delete the user account from your storage system (e.g., database)
+        // Assuming you have a User model representing your users
+        UserAccount::where('id', $user->id)->delete();
+
+        // Forget or delete the session data
+        $request->session()->forget('user'); // or $request->session()->flush();
+
+        return redirect()->route('login')->with('status', 'Your account has been deleted successfully.');
+    }
+
+    // If user information doesn't exist in the session
+    return back()->withErrors(['message' => 'Unable to delete account.']);
+}
+
 }

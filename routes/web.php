@@ -21,12 +21,16 @@ Route::get('/aboutus', [PagesControllerJps::class, 'aboutus']);
 Route::get('controlstructure', [PagesControllerJps::class, 'control']);
 Route::get('/client/{ClientID?}', [PagesControllerJps::class, 'client'])->name('client.find');
 Route::get('/clients', [PagesControllerJps::class, 'clientData'])->name('clients.data');
+Route::get('/profile', [PagesControllerJPS::class, 'profile'])->name('profile');
+Route::match(['post', 'get'], '/profile/update', [AuthControllerJPS::class, 'updateProfile'])->name('update-profile');
+Route::delete('/profile/delete', [AuthControllerJPS::class, 'deleteAccount'])->name('profile.delete');
+
 
 Route::get('/signup', [AuthControllerJPS::class, 'showSignupForm'])->name('signup');
 Route::post('/signup', [AuthControllerJPS::class, 'signUp']);
 Route::get('/login', [AuthControllerJPS::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthControllerJPS::class, 'login'])->name('login.submit');
-Route::post('/logout', [AuthControllerJPS::class, 'logout'])->name('logout');
+Route::match(['get', 'post'], '/logout', [AuthControllerJPS::class, 'logout'])->name('logout');
 
 Route::resource('/ClientManagement', ClientControllerJPS::class);
 

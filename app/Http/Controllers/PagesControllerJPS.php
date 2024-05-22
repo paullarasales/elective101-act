@@ -82,4 +82,17 @@ class PagesControllerJPS extends Controller
     public function test() {
         return view('test');
     }
+
+    public function profile(Request $request) {
+        $user = $request->session()->get('user');
+
+        return view('profile', compact('user'));
+    }
+
+
+    public function update(Request $request) {
+        $user = $request->session()->get('user');
+
+        return view('update-profile', compact('user'));
+    }
 }
